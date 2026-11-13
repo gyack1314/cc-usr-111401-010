@@ -31,13 +31,26 @@ class ObjectStore:
                 os.unlink(name)
         return digest
 
-    def get(self, digest):
+    def _checked(self, digest):
         if not isinstance(digest,str) or len(digest)!=64 or any(c not in '0123456789abcdef' for c in digest):
             raise ValueError('对象身份非法')
-        raw = (self.root / digest).read_bytes()
+        return digest
+
+    def get(self, digest):
+        raw = (self.root / self._checked(digest)).read_bytes()
         if hashlib.sha256(raw).hexdigest() != digest:
             raise ValueError('对象摘要不符')
         return raw
+
+    def exists(self, digest):
+        return (self.root / self._checked(digest)).exists()
+
+    def delete(self, digest):
+        try:
+            (self.root / self._checked(digest)).unlink()
+            return True
+        except FileNotFoundError:
+            return False
 
     def put_json(self, value):
         return self.put(encode(value))
