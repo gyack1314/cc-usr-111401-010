@@ -1,0 +1,51 @@
+{
+  "queries": [
+    {
+      "tenant": "alpha",
+      "snapshot": "s1",
+      "parameters": {
+        "tool": "chat"
+      },
+      "order": [
+        "time",
+        "occurrence_id"
+      ]
+    }
+  ],
+  "fragments": [
+    {
+      "fragment_id": "f1",
+      "rows": [
+        {
+          "occurrence_id": "a",
+          "time": 10,
+          "value": 3
+        },
+        {
+          "occurrence_id": "c",
+          "time": 20,
+          "value": 4
+        }
+      ]
+    },
+    {
+      "fragment_id": "f2",
+      "rows": [
+        {
+          "occurrence_id": "b",
+          "time": 10,
+          "value": 3
+        },
+        {
+          "occurrence_id": "d",
+          "time": 30,
+          "value": 5
+        }
+      ]
+    }
+  ],
+  "states": [
+    "running",
+    "complete"
+  ]
+}
